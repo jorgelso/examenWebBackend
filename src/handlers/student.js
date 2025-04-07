@@ -1,11 +1,11 @@
-class CustomerHttpHandler {
+class StudentHttpHandler {
   constructor(studentController) {
     // We use an injected controller instead of initializing one here
-    // this.studentController = new CustomerHttpHandler()
+    // this.studentController = new StudentHttpHandler()
     this.studentController = studentController;
   }
 
-  async getAllCustomers(req, res) {
+  async getAllStudents(req, res) {
     try {
       const students = await this.studentController.getAll();
       res.json(students);
@@ -14,7 +14,7 @@ class CustomerHttpHandler {
     }
   }
 
-  async getCustomerById(req, res) {
+  async getStudentById(req, res) {
     try {
       const student = await this.studentController.getById(req.params.id);
       res.json(student);
@@ -25,4 +25,4 @@ class CustomerHttpHandler {
 }
 
 // Export the class directly
-module.exports = CustomerHttpHandler;
+module.exports = StudentHttpHandler;

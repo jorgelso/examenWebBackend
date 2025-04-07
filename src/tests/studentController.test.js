@@ -1,38 +1,55 @@
-const CustomerController = require('../controllers/student');
+const StudentController = require('../controllers/student');
 
-describe('CustomerController', () => {
+describe('StudentController', () => {
   let mockService;
   let controller;
 
   beforeEach(() => {
     mockService = {
-      getAllCustomers: jest.fn(),
-      getCustomerById: jest.fn(),
+      getAllStudents: jest.fn(),
+      getStudentById: jest.fn(),
     };
-    controller = new CustomerController(mockService);
+    controller = new StudentController(mockService);
   });
 
   test('should get all students', async () => {
-    const students = [{ id: 1, name: 'John Doe', email: 'john@example.com' }];
-    mockService.getAllCustomers.mockResolvedValue(students);
+    const students = [{ id: 1, name: 'John Doe', status: "Approved" }];
+    mockService.getAllStudents.mockResolvedValue(students);
 
     const result = await controller.getAll();
     expect(result).toEqual(students);
-    expect(mockService.getAllCustomers).toHaveBeenCalledTimes(1);
+    expect(mockService.getAllStudents).toHaveBeenCalledTimes(1);
   });
 
   test('should get student by ID', async () => {
-    const student = { id: 1, name: 'John Doe', email: 'john@example.com' };
-    mockService.getCustomerById.mockResolvedValue(student);
+    const student = { id: 1, name: 'John Doe', status: "Approved" };
+    mockService.getStudentById.mockResolvedValue(student);
 
     const result = await controller.getById(1);
     expect(result).toEqual(student);
-    expect(mockService.getCustomerById).toHaveBeenCalledWith(1);
+    expect(mockService.getStudentById).toHaveBeenCalledWith(1);
   });
 
   test('should throw an error if student not found', async () => {
-    mockService.getCustomerById.mockResolvedValue(null);
+    mockService.getStudentById.mockResolvedValue(null);
 
-    await expect(controller.getById(1)).rejects.toThrow('student not found');
+    await expect(controller.getById(1)).rejects.toThrow('Student not found');
+  });
+
+  test("should return \"Approved\" as status when grade is at or above 70 and has no debt", () => {
+    expect(StudentController.calculateStatus("70", "0")).toBe("Approved");
+    expect(StudentController.calculateStatus("100", "0")).toBe("Approved");
+  });
+  test("should return \"Pending\" as status when grade is below 70 and has no debt", () => {
+    expect(StudentController.calculateStatus("69", "0")).toBe("Pending");
+    expect(StudentController.calculateStatus("0", "0")).toBe("Pending");
+  });
+  test("should return \"Restructure\" as status when grade is at or above 70 and has debt", () => {
+    expect(StudentController.calculateStatus("70", "500")).toBe("Restructure");
+    expect(StudentController.calculateStatus("100", "1")).toBe("Restructure");
+  });
+  test("should return \"Expelled\" as status when grade is below 70 and has debt", () => {
+    expect(StudentController.calculateStatus("69", "500")).toBe("Expelled");
+    expect(StudentController.calculateStatus("0", "1")).toBe("Expelled");
   });
 });

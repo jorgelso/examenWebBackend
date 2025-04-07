@@ -5,24 +5,24 @@ class FakeService extends DBService {
     super();
     this.students = new Map();
     // Initialize with 5 dummy students
-    const dummyCustomers = [
-      { id: '1', name: 'John Doe', score: '100', debt: "1000000000000000" },
-      { id: '2', name: 'Jane Smith', score: '100', debt: "0" },
-      { id: '3', name: 'Bob Johnson', score: '100', debt: "1000" },
-      { id: '4', name: 'Alice Brown', score: '100', debt: "0" },
-      { id: '5', name: 'Charlie Wilson', score: '100', debt: "6" },
+    const dummyStudents = [
+      { id: '1', name: 'John Doe', score: 100, debt: 300 },
+      { id: '2', name: 'Jane Smith', score: 0, debt: 0 },
+      { id: '3', name: 'Bob Johnson', score: 60, debt: 1000 },
+      { id: '4', name: 'Alice Brown', score: 20, debt: 0 },
+      { id: '5', name: 'Charlie Wilson', score: 34, debt: 6 },
     ];
 
-    dummyCustomers.forEach((student) => {
+    dummyStudents.forEach((student) => {
       this.students.set(student.id, student);
     });
   }
 
-  async getAllCustomers() {
+  async getAllStudents() {
     return Array.from(this.students.values());
   }
 
-  async getCustomerById(id) {
+  async getStudentById(id) {
     return this.students.get(id);
   }
 }

@@ -1,10 +1,10 @@
 const request = require('supertest');
 const express = require('express');
-const CustomerHttpHandler = require('../handlers/student');
+const StudentHttpHandler = require('../handlers/student');
 
 jest.mock('../controllers/student');
 
-describe('CustomerHttpHandler', () => {
+describe('StudentHttpHandler', () => {
   let app;
   let mockController;
 
@@ -25,17 +25,17 @@ describe('CustomerHttpHandler', () => {
     //  - Use a production environment controller, which runs the business logic and database calls
     //  - Use a testing mock environment, which only returns the result of unit tests
 
-    const httpHandler = new CustomerHttpHandler(mockController);
+    const httpHandler = new StudentHttpHandler(mockController);
 
     // Update method names to match the handler class
-    app.get('/students', httpHandler.getAllCustomers.bind(httpHandler));
-    app.get('/students/:id', httpHandler.getCustomerById.bind(httpHandler));
+    app.get('/students', httpHandler.getAllStudents.bind(httpHandler));
+    app.get('/students/:id', httpHandler.getStudentById.bind(httpHandler));
   });
 
   describe('GET /students', () => {
     it('should return all students', async () => {
       const students = [
-        { id: 1, name: 'John Doe', email: 'john@example.com' },
+        { id: 1, name: 'John Doe', status: "Approved" },
       ];
       mockController.getAll.mockResolvedValue(students);
 
@@ -50,7 +50,7 @@ describe('CustomerHttpHandler', () => {
 
   describe('GET /students/:id', () => {
     it('should return a student by ID', async () => {
-      const student = { id: 1, name: 'John Doe', email: 'john@example.com' };
+      const student = { id: 1, name: 'John Doe', status: 'Approved' };
       mockController.getById.mockResolvedValue(student);
 
       const response = await request(app)
