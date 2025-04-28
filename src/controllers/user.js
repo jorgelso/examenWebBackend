@@ -18,7 +18,7 @@ class UserController {
     const user = await this.service.findUserByUsername(username);
 
     if (!user || user.password !== password) {
-      throw new Error('Login failed: Invalid username or password');
+      throw new Error('Login failed');
     }
 
     return UserController.cleanForApi(user);
