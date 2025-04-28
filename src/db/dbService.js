@@ -3,14 +3,14 @@ class DBService {
     this.initialized = false;
   }
 
-  async getAllStudents() {
+  async getAllUsers() {
     if (!this.initialized) {
       throw new Error('Service not initialized');
     }
     throw new Error('Method not implemented');
   }
 
-  async getStudentById(_id) {
+  async findUserByUsername(_username) {
     if (!this.initialized) {
       throw new Error('Service not initialized');
     }

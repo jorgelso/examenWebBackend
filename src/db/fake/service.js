@@ -1,30 +1,30 @@
 const DBService = require('../dbService');
 
-class FakeService extends DBService {
+class FakeUserService extends DBService {
   constructor() {
     super();
-    this.students = new Map();
-    // Initialize with 5 dummy students
-    const dummyStudents = [
-      { id: '1', name: 'John Doe', score: 100, debt: 0 },
-      { id: '2', name: 'Jane Smith', score: 0, debt: 0 },
-      { id: '3', name: 'Bob Johnson', score: 60, debt: 1000 },
-      { id: '4', name: 'Alice Brown', score: 20, debt: 0 },
-      { id: '5', name: 'Charlie Wilson', score: 100, debt: 20 },
+    this.users = new Map();
+
+    const dummyUsers = [
+      { username: 'alejandra.m', password: 'verde123', fullName: 'Alejandra Morales', ticketNumber: '00123' },
+      { username: 'david.p', password: 'bosque456', fullName: 'David Pérez', ticketNumber: '00124' },
+      { username: 'lucia.r', password: 'eco789', fullName: 'Lucía Ramírez', ticketNumber: '00125' },
     ];
 
-    dummyStudents.forEach((student) => {
-      this.students.set(student.id, student);
+    dummyUsers.forEach((user) => {
+      this.users.set(user.username, user);
     });
+
+    this.initialized = true;
   }
 
-  async getAllStudents() {
-    return Array.from(this.students.values());
+  async getAllUsers() {
+    return Array.from(this.users.values());
   }
 
-  async getStudentById(id) {
-    return this.students.get(id);
+  async findUserByUsername(username) {
+    return this.users.get(username);
   }
 }
 
-module.exports = FakeService;
+module.exports = FakeUserService;
