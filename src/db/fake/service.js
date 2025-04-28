@@ -6,9 +6,9 @@ class FakeUserService extends DBService {
     this.users = new Map();
 
     const dummyUsers = [
-      { username: 'sandra.g', password: 'latte123', fullName: 'Sandra García', ticketNumber: '5001' },
-      { username: 'roberto.m', password: 'capuccino456', fullName: 'Roberto Martínez', ticketNumber: '5002' },
-      { username: 'esteban.l', password: 'espresso789', fullName: 'Esteban López', ticketNumber: '5003' },
+      { username: 'alejandra.m', password: 'verde123', fullName: 'Alejandra Morales', ticketNumber: '00123' },
+      { username: 'david.p', password: 'bosque456', fullName: 'David Pérez', ticketNumber: '00124' },
+      { username: 'lucia.r', password: 'eco789', fullName: 'Lucía Ramírez', ticketNumber: '00125' },
     ];
 
     dummyUsers.forEach((user) => {
