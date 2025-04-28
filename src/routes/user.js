@@ -16,7 +16,14 @@ router.post('/login', async (req, res) => {
 
   try {
     const user = await userController.login(username, password);
-    res.json({ success: true, user });
+
+    res.json({
+      success: true,
+      user: {
+        fullName: user.fullName,
+        ticketNumber: user.ticketNumber,
+      },
+    });
   } catch (error) {
     res.status(401).json({ success: false, message: error.message });
   }
